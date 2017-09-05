@@ -10,6 +10,8 @@ end
 gem 'rails', '~> 5.1.3'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
+# A Ruby gem to load environment variables from `.env`.
+gem 'dotenv-rails', groups: [:development, :test]
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
@@ -36,6 +38,14 @@ gem 'jbuilder', '~> 2.5'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # RSpec for Rails 3+
+  gem 'rspec-rails'
+  # A library for setting up Ruby objects as test data.
+  gem 'factory_girl_rails'
+  # Brings back `assigns` and `assert_template` to your Rails tests
+  gem 'rails-controller-testing'
+  # Collection of testing matchers extracted from Shoulda
+  gem 'shoulda-matchers'
 end
 
 group :development do
@@ -45,7 +55,25 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  # Guard is a command line tool to easily handle events on file system modifications
+  gem 'guard'
+  # gem 'guard-livereload', '~> 2.5', require: false
+  gem 'guard-livereload', '~> 2.5', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# Additional Gems
+# Flexible authentication solution for Rails with Warden
+gem 'devise'
+# A library for generating fake data such as names, addresses, and phone numbers.
+gem 'faker'
+# Forms made easy for Rails! It's tied to a simple DSL, with no opinion on markup.
+gem 'simple_form'
+# A gem to automate using jQuery with Rails
+gem 'jquery-rails'
+# Official Sass port of Bootstrap 2 and 3.
+gem 'bootstrap-sass'
+# Slim templates generator for Rails 3, 4 and 5
+gem "slim-rails"
