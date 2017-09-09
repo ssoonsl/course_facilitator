@@ -1,0 +1,3 @@
+class CompletedOutcome < ApplicationRecord
+
+end

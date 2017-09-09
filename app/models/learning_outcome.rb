@@ -1,0 +1,3 @@
+class LearningOutcome < ApplicationRecord
+
+end
