@@ -10,10 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170905142517) do
+ActiveRecord::Schema.define(version: 20170909144002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "batches", force: :cascade do |t|
+    t.string "code", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "completed_outcomes", force: :cascade do |t|
+    t.bigint "batch_id", null: false
+    t.bigint "learning_outcome_id", null: false
+    t.bigint "daily_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["batch_id"], name: "index_completed_outcomes_on_batch_id"
+    t.index ["daily_id"], name: "index_completed_outcomes_on_daily_id"
+    t.index ["learning_outcome_id"], name: "index_completed_outcomes_on_learning_outcome_id"
+  end
+
+  create_table "dailies", force: :cascade do |t|
+    t.date "date", null: false
+    t.text "goal", default: "", null: false
+    t.text "morning", default: "", null: false
+    t.text "afterlunch", default: "", null: false
+    t.text "afternoon", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "instructors", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -33,4 +60,14 @@ ActiveRecord::Schema.define(version: 20170905142517) do
     t.index ["reset_password_token"], name: "index_instructors_on_reset_password_token", unique: true
   end
 
+  create_table "learning_outcomes", force: :cascade do |t|
+    t.string "description", default: "", null: false
+    t.integer "week", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "completed_outcomes", "batches"
+  add_foreign_key "completed_outcomes", "dailies"
+  add_foreign_key "completed_outcomes", "learning_outcomes"
 end
