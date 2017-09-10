@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :batch do
-    code 'testbatch'
+    sequence(:code) { |n| "batch#{n}" }
 
     trait :invalid do
       code nil
