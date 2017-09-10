@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 20170909144002) do
 
   create_table "learning_outcomes", force: :cascade do |t|
     t.string "description", default: "", null: false
+    t.integer "week", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
