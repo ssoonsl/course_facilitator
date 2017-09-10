@@ -22,24 +22,25 @@ ActiveRecord::Schema.define(version: 20170909144002) do
   end
 
   create_table "completed_outcomes", force: :cascade do |t|
-    t.bigint "batch_id", null: false
     t.bigint "learning_outcome_id", null: false
     t.bigint "daily_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["batch_id"], name: "index_completed_outcomes_on_batch_id"
     t.index ["daily_id"], name: "index_completed_outcomes_on_daily_id"
     t.index ["learning_outcome_id"], name: "index_completed_outcomes_on_learning_outcome_id"
   end
 
   create_table "dailies", force: :cascade do |t|
-    t.date "date", null: false
+    t.bigint "week_id", null: false
+    t.integer "day", default: 0, null: false
+    t.date "date", default: "2000-01-01", null: false
     t.text "goal", default: "", null: false
     t.text "morning", default: "", null: false
     t.text "afterlunch", default: "", null: false
     t.text "afternoon", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["week_id"], name: "index_dailies_on_week_id"
   end
 
   create_table "instructors", force: :cascade do |t|
@@ -62,12 +63,19 @@ ActiveRecord::Schema.define(version: 20170909144002) do
 
   create_table "learning_outcomes", force: :cascade do |t|
     t.string "description", default: "", null: false
-    t.integer "week", default: 0, null: false
+    t.integer "target", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "completed_outcomes", "batches"
+  create_table "weeks", force: :cascade do |t|
+    t.bigint "batch_id"
+    t.integer "number"
+    t.index ["batch_id"], name: "index_weeks_on_batch_id"
+  end
+
   add_foreign_key "completed_outcomes", "dailies"
   add_foreign_key "completed_outcomes", "learning_outcomes"
+  add_foreign_key "dailies", "weeks"
+  add_foreign_key "weeks", "batches"
 end

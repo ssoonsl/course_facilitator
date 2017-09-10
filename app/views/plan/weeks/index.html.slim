@@ -1,0 +1,25 @@
+.container
+  .row
+    .col-md-offset-2.col-md-8
+
+      .panel.panel-default
+        .panel-heading
+          | Batches
+        .panel-body
+          p Pick a week to plan
+
+        table.table.table-hover.text-center
+          thead
+            tr
+              th.text-center Batch
+              th.text-center Week
+              th
+          tbody
+            - @weeks.each do |week|
+              tr
+                td
+                  = week.batch.code
+                td
+                  = week.number
+                td
+                  = link_to 'Plan', plan_week_path(week.id), class: 'btn btn-primary'
