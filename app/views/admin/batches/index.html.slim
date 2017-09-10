@@ -1,8 +1,0 @@
-.container
-  .row
-    .col-md-offset-2.col-md-8
-      h1 Weekly Plan
-
-      - @batches.each do |batch|
-        p
-          = link_to batch.code, admin_plan_week

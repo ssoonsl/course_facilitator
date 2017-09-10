@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Admin::BatchesController, type: :controller do
+RSpec.describe Plan::WeeksController, type: :controller do
 
   context 'when not signed in as instructor' do
 
@@ -15,11 +15,11 @@ RSpec.describe Admin::BatchesController, type: :controller do
 
     describe 'GET #index' do
 
-      let(:batches) { create_list(:batch, 3) }
+      let(:weeks) { create_list(:week, 3) }
 
       before { get :index }
 
-      it { expect(assigns(:batches)).to eq(batches) }
+      it { expect(assigns(:weeks)).to eq(weeks) }
 
     end
 
