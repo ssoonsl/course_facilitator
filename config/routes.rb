@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :instructors
 
+  devise_for :admins
   namespace :plan do
     resources :weeks, only: [:index, :show] do
       member do
