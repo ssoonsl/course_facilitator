@@ -21,6 +21,10 @@ class Plan::DailiesController < ApplicationController
     @daily = Daily.find(params[:daily])
     @learning_outcome = LearningOutcome.find(params[:learning_outcome])
     CompletedOutcome.create(daily: @daily, learning_outcome: @learning_outcome)
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   private

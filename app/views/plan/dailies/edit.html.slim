@@ -17,7 +17,7 @@
               td
                 = learning_outcome.description
               td
-                = button_to 'Add', link_outcome_path(daily: @daily, learning_outcome: learning_outcome), method: :post, class: 'btn btn-primary'
+                = button_to 'Add', link_outcome_path(daily: @daily, learning_outcome: learning_outcome), method: :post, remote: true, class: 'btn btn-primary', id: 'link-outcome'
 
     .col-md-9
       - @dailies.each do |daily|
@@ -67,10 +67,8 @@
             .row
               .col-md-6
                 .value-header.text-center Learning Outcomes
-                .well.well-sm
-                  - f.object.learning_outcomes.each do |learning_outcome|
-                    p
-                      = learning_outcome.description
+                #outcome_list
+                  = render partial: 'linked_outcome_list'
               .col-md-6
                 = f.input :goal
             .row
