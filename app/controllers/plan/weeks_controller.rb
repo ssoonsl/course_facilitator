@@ -9,7 +9,7 @@ class Plan::WeeksController < ApplicationController
   def show
     @week = Week.find(params[:id])
     @learning_outcomes = LearningOutcome.all
-    @dailies = @week.dailies
+    @dailies = @week.dailies.order('day ASC')
   end
 
 end
