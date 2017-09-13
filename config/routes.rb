@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   namespace :plan do
     resources :weeks, only: [:index, :show] do
       member do
-        # resources :daily, only: [:create, :destroy]
+        resources :daily, only: [:edit, :update]
         # resources :completed_outcome, only: [:create, :destroy]
       end
     end
