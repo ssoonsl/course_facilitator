@@ -5,7 +5,7 @@
         thead
           tr
             th.text-center Wk
-            th.text-center Learning Outcome
+            th Learning Outcome
             th
           tr
 
@@ -23,8 +23,8 @@
       - @dailies.each do |daily|
         - unless daily == @daily
           h1
-            = link_to 'Edit', edit_plan_daily_path(week_id: @week, id: daily), class: 'btn btn-primary'
-            '
+            / = link_to 'Edit', edit_plan_daily_path(week_id: @week, id: daily), class: 'btn btn-primary'
+            / '
             = daily.day
             '
             = daily.date
@@ -58,23 +58,24 @@
         - else
           = simple_form_for daily, url: plan_daily_path(week_id: @week, id: daily), method: :put, class: 'text-center' do |f|
             h1
-              = f.submit 'Update', class: 'btn btn-success'
+              = f.submit 'Save changes', class: 'btn btn-success'
               '
               = daily.day
               '
               = daily.date
-
+              '
+              = link_to 'Discard changes', plan_week_path(@week), method: :get, class: 'btn btn-danger pull-right'
             .row
               .col-md-6
                 .value-header.text-center Learning Outcomes
-                #outcome_list
+                #outcome-list
                   = render partial: 'linked_outcome_list'
               .col-md-6
                 = f.input :goal
             .row
-            .col-md-4
-              = f.input :morning, label: '10am - 12pm'
-            .col-md-4
-              = f.input :afterlunch, label: '1pm - 3pm'
-            .col-md-4
-              = f.input :afternoon, label: '3pm - 5pm'
+              .col-md-4
+                = f.input :morning, label: '10am - 12pm'
+              .col-md-4
+                = f.input :afterlunch, label: '1pm - 3pm'
+              .col-md-4
+                = f.input :afternoon, label: '3pm - 5pm'

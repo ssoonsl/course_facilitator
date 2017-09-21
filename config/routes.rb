@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   end
 
   post :link_outcome, to: 'plan/dailies#link_outcome'
-  # delete :unlink_outcome, to: 'plan/dailies#unlink_outcome'
+  delete :unlink_outcome, to: 'plan/dailies#unlink_outcome'
 
   root to: 'plan/weeks#index'
 
