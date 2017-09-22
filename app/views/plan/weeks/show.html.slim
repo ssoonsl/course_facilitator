@@ -1,0 +1,52 @@
+.container-fluid
+  .row
+    .col-md-3
+      table.table.table-responsive
+        thead
+          tr
+            th.text-center Wk
+            th Learning Outcome
+          tr
+
+        tbody
+          - @learning_outcomes.each do |learning_outcome|
+            tr
+              td.text-center
+                = learning_outcome.target
+              td
+                = learning_outcome.description
+
+    .col-md-9
+      - @dailies.each do |daily|
+        h1
+          = link_to 'Edit', edit_plan_daily_path(week_id: @week, id: daily), class: 'btn btn-primary'
+          '
+          = daily.day
+          '
+          = daily.date
+
+        .row
+          .col-md-6
+            .value-header.text-center Learning Outcomes
+            .well.well-sm
+              - daily.learning_outcomes.each do |learning_outcome|
+                p
+                  = learning_outcome.description
+          .col-md-6
+            .value-header.text-center Goal
+            .well.well-sm
+              = daily.goal
+
+        .row
+          .col-md-4
+            .value-header.text-center 10am - 12pm
+            .well.well-sm
+              = daily.morning
+          .col-md-4
+            .value-header.text-center 1pm - 3pm
+            .well.well-sm
+              = daily.afterlunch
+          .col-md-4
+            .value-header.text-center 3pm - 5pm
+            .well.well-sm
+              = daily.afternoon

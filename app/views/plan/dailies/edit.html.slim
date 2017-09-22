@@ -1,0 +1,81 @@
+.container-fluid
+  .row
+    .col-md-3
+      table.table.table-responsive.text-center
+        thead
+          tr
+            th.text-center Wk
+            th Learning Outcome
+            th
+          tr
+
+        tbody
+          - @learning_outcomes.each do |learning_outcome|
+            tr
+              td
+                = learning_outcome.target
+              td
+                = learning_outcome.description
+              td
+                = button_to 'Add', link_outcome_path(daily: @daily, learning_outcome: learning_outcome), method: :post, remote: true, class: 'btn btn-primary', id: 'link-outcome'
+
+    .col-md-9
+      - @dailies.each do |daily|
+        - unless daily == @daily
+          h1
+            / = link_to 'Edit', edit_plan_daily_path(week_id: @week, id: daily), class: 'btn btn-primary'
+            / '
+            = daily.day
+            '
+            = daily.date
+
+          .row
+            .col-md-6
+              .value-header.text-center Learning Outcomes
+              .well.well-sm
+                - daily.learning_outcomes.each do |learning_outcome|
+                  p
+                    = learning_outcome.description
+            .col-md-6
+              .value-header.text-center Goal
+              .well.well-sm
+                = daily.goal
+
+          .row
+            .col-md-4
+              .value-header.text-center 10am - 12pm
+              .well.well-sm
+                = daily.morning
+            .col-md-4
+              .value-header.text-center 1pm - 3pm
+              .well.well-sm
+                = daily.afterlunch
+            .col-md-4
+              .value-header.text-center 3pm - 5pm
+              .well.well-sm
+                = daily.afternoon
+
+        - else
+          = simple_form_for daily, url: plan_daily_path(week_id: @week, id: daily), method: :put, class: 'text-center' do |f|
+            h1
+              = f.submit 'Save changes', class: 'btn btn-success'
+              '
+              = daily.day
+              '
+              = daily.date
+              '
+              = link_to 'Discard changes', plan_week_path(@week), method: :get, class: 'btn btn-danger pull-right'
+            .row
+              .col-md-6
+                .value-header.text-center Learning Outcomes
+                #outcome-list
+                  = render partial: 'linked_outcome_list'
+              .col-md-6
+                = f.input :goal
+            .row
+              .col-md-4
+                = f.input :morning, label: '10am - 12pm'
+              .col-md-4
+                = f.input :afterlunch, label: '1pm - 3pm'
+              .col-md-4
+                = f.input :afternoon, label: '3pm - 5pm'
