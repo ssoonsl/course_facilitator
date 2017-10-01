@@ -1,9 +1,9 @@
 class LearningOutcome < ApplicationRecord
 
-  validates :description, presence: true, uniqueness: { case_sensitive: false }
-  validates :target, presence: true
+  validates :description, presence: true
 
-  has_many :completed_outcomes
-  has_many :dailies, through: :completed_outcomes
+  belongs_to :learning_objective, optional: true
+
+  has_many :batch_objectives
 
 end
