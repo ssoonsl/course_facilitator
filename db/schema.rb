@@ -10,73 +10,69 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170911145539) do
+ActiveRecord::Schema.define(version: 20171001010346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "admins", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "username", default: "", null: false
-    t.string "job_title", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.inet "current_sign_in_ip"
-    t.inet "last_sign_in_ip"
+  create_table "batch_objectives", force: :cascade do |t|
+    t.bigint "batch_id", null: false
+    t.bigint "week_plan_id"
+    t.bigint "day_plan_id"
+    t.bigint "learning_objective_id", null: false
+    t.bigint "learning_outcome_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_admins_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+    t.index ["batch_id"], name: "index_batch_objectives_on_batch_id"
+    t.index ["day_plan_id"], name: "index_batch_objectives_on_day_plan_id"
+    t.index ["learning_objective_id"], name: "index_batch_objectives_on_learning_objective_id"
+    t.index ["learning_outcome_id"], name: "index_batch_objectives_on_learning_outcome_id"
+    t.index ["week_plan_id"], name: "index_batch_objectives_on_week_plan_id"
   end
 
   create_table "batches", force: :cascade do |t|
     t.string "code", default: "", null: false
+    t.date "start_date", default: "2000-01-01", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "completed_outcomes", force: :cascade do |t|
-    t.bigint "learning_outcome_id", null: false
-    t.bigint "daily_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["daily_id"], name: "index_completed_outcomes_on_daily_id"
-    t.index ["learning_outcome_id"], name: "index_completed_outcomes_on_learning_outcome_id"
-  end
-
-  create_table "dailies", force: :cascade do |t|
-    t.bigint "week_id", null: false
+  create_table "day_plans", force: :cascade do |t|
+    t.bigint "week_plan_id", null: false
     t.integer "day", default: 0, null: false
-    t.date "date", default: "2000-01-01", null: false
-    t.text "goal", default: "", null: false
     t.text "morning", default: "", null: false
     t.text "afterlunch", default: "", null: false
     t.text "afternoon", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["week_id"], name: "index_dailies_on_week_id"
+    t.index ["week_plan_id"], name: "index_day_plans_on_week_plan_id"
   end
 
-  create_table "learning_outcomes", force: :cascade do |t|
-    t.string "description", default: "", null: false
-    t.integer "target", default: 0, null: false
+  create_table "learning_objectives", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.text "description", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "weeks", force: :cascade do |t|
-    t.bigint "batch_id"
-    t.integer "number"
-    t.index ["batch_id"], name: "index_weeks_on_batch_id"
+  create_table "learning_outcomes", force: :cascade do |t|
+    t.bigint "learning_objective_id"
+    t.text "description", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["learning_objective_id"], name: "index_learning_outcomes_on_learning_objective_id"
   end
 
-  add_foreign_key "completed_outcomes", "dailies"
-  add_foreign_key "completed_outcomes", "learning_outcomes"
-  add_foreign_key "dailies", "weeks"
-  add_foreign_key "weeks", "batches"
+  create_table "week_plans", force: :cascade do |t|
+    t.bigint "batch_id", null: false
+    t.integer "week", default: 0, null: false
+    t.date "start_date", default: "2000-01-01", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["batch_id"], name: "index_week_plans_on_batch_id"
+  end
+
+  add_foreign_key "day_plans", "week_plans"
+  add_foreign_key "learning_outcomes", "learning_objectives"
+  add_foreign_key "week_plans", "batches"
 end
