@@ -1,0 +1,9 @@
+.container-fluid
+  .row
+    .col-md-8.col-md-offset-2
+      h1 All Batches
+
+      - @batches.each do |batch|
+        = batch.code
+
+      p = link_to 'Create a new batch', new_plan_batch_path, class: 'btn btn-primary'
