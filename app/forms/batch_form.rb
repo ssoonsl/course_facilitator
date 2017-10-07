@@ -22,6 +22,15 @@ class BatchForm
     end
   end
 
+  def update
+    if valid?
+      @batch.save
+      update_week_plan_start_date
+    else
+      false
+    end
+  end
+
   private
 
   def batch_is_valid?
@@ -34,6 +43,13 @@ class BatchForm
       for j in 1..5 do
         DayPlan.create(week_plan: week, day: j)
       end
+    end
+  end
+
+  def update_week_plan_start_date
+    @batch.week_plans.each_with_index do |week_plan, i|
+      week_plan.start_date = @batch.start_date + i.weeks
+      week_plan.save
     end
   end
 

@@ -19,6 +19,11 @@ class Plan::BatchesController < ApplicationController
     end
   end
 
+  def edit
+    @batch = Batch.find(params[:id])
+    @batch_form = ::BatchForm.new(@batch)
+  end
+
   private
 
   def batch_params
