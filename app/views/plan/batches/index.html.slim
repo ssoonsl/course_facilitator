@@ -1,0 +1,19 @@
+.container-fluid
+  .row
+    .col-md-8.col-md-offset-2
+      h1 All Batches
+
+      table.table.table-striped.table-hover
+        thead
+          tr
+            th Batch
+            th
+            th
+        tbody
+          - @batches.each do |batch|
+            tr
+              td = batch.code
+              td = link_to 'Edit batch code', edit_plan_batch_path(id: batch.id)
+              td = link_to 'Delete batch', plan_batch_path(id: batch.id), method: :delete, data: { confirm: 'This will destroy all week and day plans associated with this batch. Confirm?' }
+
+      p = link_to 'Create a new batch', new_plan_batch_path, class: 'btn btn-primary'
