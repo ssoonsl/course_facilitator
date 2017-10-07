@@ -5,6 +5,7 @@
 
       = simple_form_for @batch_form, url: plan_batches_path, method: :post do |f|
         = render 'batch_form', f: f
-        = f.submit 'Create new batch'
+        = link_to 'Cancel', plan_batches_path, class: 'btn btn-default'
+        = f.submit 'Create new batch', class: 'btn btn-success'
 
       p Note: Upon creation of a batch, the week and day plans for the batch will also be generated.

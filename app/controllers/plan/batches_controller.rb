@@ -24,6 +24,22 @@ class Plan::BatchesController < ApplicationController
     @batch_form = ::BatchForm.new(@batch)
   end
 
+  def update
+    @batch = Batch.find(params[:id])
+    @batch_form = ::BatchForm.new(@batch, batch_params)
+    if @batch_form.update
+      redirect_to plan_batches_path
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @batch = Batch.find(params[:id])
+    @batch.destroy
+    redirect_to plan_batches_path
+  end
+
   private
 
   def batch_params
