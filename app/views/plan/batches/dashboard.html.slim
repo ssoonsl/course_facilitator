@@ -1,0 +1,27 @@
+.container-fluid
+  .row
+    h1 Batch Dashboard
+
+    .col-md-3
+      table.table-hover
+        thead
+          tr
+            th Unadded Learning Objectives
+            th
+            th
+        tbody
+          - @learning_objectives.each do |learning_objective|
+            tr
+            = simple_form_for @batch_objective, url: plan_batch_objectives_path, method: :post do |f|
+              td = learning_objective.name
+              td = f.input :week_plan, collection: 1..10, label: false
+              td = f.submit 'Add', class: 'btn btn-default'
+
+    .col-md-9
+      - @week_plans.each_slice(5) do |slice_week_plan|
+        .row
+          - slice_week_plan.each do |week_plan|
+            .col-md-2.well.well-sm
+              h4 Week #{week_plan.week}
+              - week_plan.batch_objectives.each do |batch_objective|
+                = batch_objective.learning_objective.name

@@ -12,7 +12,7 @@
         tbody
           - @batches.each do |batch|
             tr
-              td = batch.code
+              td = link_to batch.code, plan_batch_dashboard_path(id: batch.id)
               td = link_to 'Edit', edit_plan_batch_path(id: batch.id)
               td = link_to 'Delete', plan_batch_path(id: batch.id), method: :delete, data: { confirm: 'This will destroy all week and day plans associated with this batch. Confirm?' }
 

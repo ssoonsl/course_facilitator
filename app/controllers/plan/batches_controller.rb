@@ -40,6 +40,13 @@ class Plan::BatchesController < ApplicationController
     redirect_to plan_batches_path
   end
 
+  def dashboard
+    @batch = Batch.find(params[:id])
+    @learning_objectives = LearningObjective.all
+    @batch_objective = BatchObjective.new
+    @week_plans = @batch.week_plans.order(week: :asc)
+  end
+
   private
 
   def batch_params
