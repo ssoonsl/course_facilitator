@@ -1,0 +1,21 @@
+.container-fluid
+  .row
+    .col-md-8.col-md-offset-2
+      h1 Learning Objectives
+
+      table.table.table-striped.table-hover
+        thead
+          tr
+            th Learning Objective
+            th Description
+            th
+            th
+        tbody
+          - @learning_objectives.each do |learning_objective|
+            tr
+              td = learning_objective.name
+              td = learning_objective.description
+              td = link_to 'Edit', edit_plan_learning_objective_path(id: learning_objective.id)
+              td = link_to 'Delete', plan_learning_objective_path(id: learning_objective.id), method: :delete, data: { confirm: 'This will destroy all plans and outcomes associated with this learning objective. Confirm?' }
+
+      p = link_to 'New', new_plan_learning_objective_path, class: 'btn btn-primary'
