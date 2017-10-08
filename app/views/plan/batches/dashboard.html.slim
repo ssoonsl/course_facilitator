@@ -17,11 +17,11 @@
               td = f.input :week_plan, collection: 1..10, label: false
               td = f.submit 'Add', class: 'btn btn-default'
 
-    .col-md-9
+    .col-md-9.week-view
       - @week_plans.each_slice(5) do |slice_week_plan|
         .row
           - slice_week_plan.each do |week_plan|
-            .col-md-2.well.well-sm
+            .well.well-sm
               h4 Week #{week_plan.week}
               - week_plan.batch_objectives.each do |batch_objective|
                 = batch_objective.learning_objective.name

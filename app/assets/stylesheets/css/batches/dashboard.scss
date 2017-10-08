@@ -1,0 +1,14 @@
+.plan_batches.dashboard {
+
+  .week-view > .row {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: stretch;
+    justify-content: space-around;
+  }
+
+  .week-view > .row > .well {
+    flex-grow: 1;
+  }
+
+}
