@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   namespace :plan do
     resources :batches, except: [:show]
+    resources :learning_objectives, except: [:show]
   end
 
 end

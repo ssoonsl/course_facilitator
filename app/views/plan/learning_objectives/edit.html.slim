@@ -1,0 +1,10 @@
+.container-fluid
+  .row
+    .col-md-10.col-md-offset-1
+      h1 Edit Learning Objective
+
+      = simple_form_for @learning_objective, url: plan_learning_objective_path(id: @learning_objective.id), method: :patch do |f|
+        = f.input :name
+        = f.input :description
+        = link_to 'Cancel', plan_learning_objectives_path, class: 'btn btn-default'
+        = f.submit 'Edit', class: 'btn btn-success'
