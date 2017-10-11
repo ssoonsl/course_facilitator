@@ -4,9 +4,13 @@ Rails.application.routes.draw do
 
   namespace :plan do
     get 'batch_dashboard/:id', to: 'batches#dashboard', as: 'batch_dashboard'
-    resources :batches, except: [:show]
+
+    resources :batches, except: [:show] do
+      post 'dropdown_objective', to: 'batch_objectives#dropdown', as: 'batch_dropdown'
+      resources :batch_objectives, only: [:create, :destroy]
+    end
+
     resources :learning_objectives, except: [:show]
-    resources :batch_objectives, only: [:create]
   end
 
 end

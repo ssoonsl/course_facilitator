@@ -42,7 +42,7 @@ class Plan::BatchesController < ApplicationController
 
   def dashboard
     @batch = Batch.find(params[:id])
-    @learning_objectives = LearningObjective.all
+    @learning_objectives = LearningObjective.order(name: :asc)
     @batch_objective = BatchObjective.new
     @week_plans = @batch.week_plans.order(week: :asc)
   end

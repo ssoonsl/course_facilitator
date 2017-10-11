@@ -9,6 +9,12 @@
 
   .week-view > .row > .well {
     flex-grow: 1;
+    flex-basis: 0;
+    margin: 0;
+  }
+
+  .glyphicon-remove {
+    color: darkred;
   }
 
 }
