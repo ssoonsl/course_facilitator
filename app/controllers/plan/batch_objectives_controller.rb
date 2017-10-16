@@ -11,12 +11,14 @@ class Plan::BatchObjectivesController < ApplicationController
     else
       flash[:alert] = 'Learning objective already exists'
     end
-
     redirect_to plan_batch_dashboard_path(batch)
   end
 
   def destroy
-    
+    batch = Batch.find(params[:batch_id])
+    batch_objective = BatchObjective.find(params[:id])
+    batch_objective.destroy
+    redirect_to plan_batch_dashboard_path(batch)
   end
 
   def dropdown
@@ -24,13 +26,13 @@ class Plan::BatchObjectivesController < ApplicationController
     week_plan = WeekPlan.find(params[:week_plan_id])
     learning_objective = LearningObjective.find(params[:learning_objective])
 
-    batch_objective = BatchObjective.new(batch: batch, week_plan: week_plan, learning_objective: learning_objective)
-    if batch_objective.save
+    unless BatchObjective.exists?(batch: batch, learning_objective: learning_objective)
+      batch_objective = BatchObjective.new(batch: batch, week_plan: week_plan, learning_objective: learning_objective)
+      batch_objective.save
       flash[:notice] = 'Learning objective added'
     else
       flash[:alert] = 'Learning objective already exists'
     end
-
     redirect_to plan_batch_dashboard_path(batch)
   end
 

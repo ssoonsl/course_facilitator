@@ -1,0 +1,14 @@
+table.table-hover
+  thead
+    tr
+      th.col-md-9 Learning objective
+      th
+      th
+  tbody
+    - @learning_objectives.each do |learning_objective|
+      tr
+      td = learning_objective.name
+      = form_tag plan_batch_batch_objectives_path(batch_id: @batch), method: :post do
+        td = hidden_field_tag :learning_objective_id, value: learning_objective.id
+        td = select_tag :week, options_from_collection_for_select(@batch.week_plans, 'id', 'week'), include_blank: true
+        td = submit_tag 'Add', class: 'btn btn-default'
