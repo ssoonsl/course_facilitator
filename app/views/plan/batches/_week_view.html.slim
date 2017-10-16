@@ -1,0 +1,18 @@
+- @week_plans.each_slice(5) do |slice_week_plan|
+  .row
+  
+    - slice_week_plan.each do |week_plan|
+      .well.well-sm
+
+        h4 Week #{week_plan.week}
+
+        = form_tag plan_batch_batch_dropdown_path(batch_id: @batch), method: :post do
+          = select_tag :learning_objective, options_from_collection_for_select(@learning_objectives, 'id', 'name'), include_blank: true, class: 'col-md-9'
+          = hidden_field_tag :week_plan_id, week_plan.id
+          = submit_tag 'Add'
+
+        - week_plan.batch_objectives.each do |batch_objective|
+          p
+            = link_to plan_batch_batch_objective_path(batch_id: @batch, id: batch_objective), method: :delete do
+              span.glyphicon.glyphicon-remove<>
+            = batch_objective.learning_objective.name

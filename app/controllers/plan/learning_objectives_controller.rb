@@ -6,12 +6,13 @@ class Plan::LearningObjectivesController < ApplicationController
 
   def new
     @learning_objective = LearningObjective.new
+    session[:referer_before_new] ||= request.referer
   end
 
   def create
     @learning_objective = LearningObjective.new(learning_objective_params)
     if @learning_objective.save
-      redirect_to plan_learning_objectives_path
+      redirect_to session.delete(:referer_before_new)
     else
       render :new
     end

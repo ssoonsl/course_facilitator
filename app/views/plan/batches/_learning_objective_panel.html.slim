@@ -1,0 +1,20 @@
+- if @unused_learning_objectives.empty?
+  p All learning objectives have been added!
+- else
+  p Unadded Learning Objectives
+  table.table-hover
+    thead
+      tr
+        th.col-md-9
+        th
+        th
+    tbody
+      - @unused_learning_objectives.each do |learning_objective|
+        tr
+        td = learning_objective.name
+        = form_tag plan_batch_batch_objectives_path(batch_id: @batch), method: :post do
+          td = hidden_field_tag :learning_objective_id, learning_objective.id
+          td = select_tag :week_plan_id, options_from_collection_for_select(@batch.week_plans, 'id', 'week'), include_blank: true
+          td = submit_tag 'Add', class: 'btn btn-default'
+
+= link_to 'Add a new learning objective', new_plan_learning_objective_path, class: 'btn btn-default'
