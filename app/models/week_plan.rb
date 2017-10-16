@@ -5,6 +5,8 @@ class WeekPlan < ApplicationRecord
 
   belongs_to :batch
   has_many :day_plans, dependent: :destroy
+  
   has_many :batch_objectives
+  has_many :learning_objectives, through: :batch_objectives
 
 end

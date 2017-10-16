@@ -4,5 +4,7 @@ class Batch < ApplicationRecord
   validates :start_date, presence: true
 
   has_many :week_plans, dependent: :destroy
+  has_many :batch_objectives
+  has_many :learning_objectives, through: :batch_objectives
 
 end
